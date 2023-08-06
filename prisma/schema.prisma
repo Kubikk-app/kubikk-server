@@ -19,68 +19,68 @@ model User {
 }
 
 model ProjectMember {
-  id              Int         @id @default(autoincrement())
-  user_id         Int
-  user            User        @relation(fields: [user_id], references: [id])
-  project_id      Int
-  project         Project     @relation(fields: [project_id], references: [id])
-  project_team_id Int
-  project_team    ProjectTeam @relation(fields: [project_team_id], references: [id])
+  id            Int         @id @default(autoincrement())
+  userId        Int
+  user          User        @relation(fields: [userId], references: [id])
+  projectId     Int
+  project       Project     @relation(fields: [projectId], references: [id])
+  projectTeamId Int
+  team          ProjectTeam @relation(fields: [projectTeamId], references: [id])
 }
 
 model Organization {
-  id        Int                @id @default(autoincrement())
-  name      String             @unique
-  icon_link String
-  users     User[]
-  projects  Project[]
-  roles     OrganizationRole[]
+  id       Int                @id @default(autoincrement())
+  name     String             @unique
+  iconLink String
+  users    User[]
+  projects Project[]
+  roles    OrganizationRole[]
 }
 
 model OrganizationRole {
-  id                  Int          @id @default(autoincrement())
-  label               String
-  can_manage_members  Boolean      @default(false)
-  can_rename_org      Boolean      @default(false)
-  can_manage_projects Boolean      @default(false)
-  organization_id     Int
-  organization        Organization @relation(fields: [organization_id], references: [id])
+  id                Int          @id @default(autoincrement())
+  label             String
+  canManageMembers  Boolean      @default(false)
+  canRenameOrg      Boolean      @default(false)
+  canManageProjects Boolean      @default(false)
+  organizationId    Int
+  organization      Organization @relation(fields: [organizationId], references: [id])
 }
 
 model Project {
-  id              Int             @id @default(autoincrement())
-  name            String
-  description     String
-  organization_id Int
-  organization    Organization    @relation(fields: [organization_id], references: [id])
-  members         ProjectMember[]
-  teams           ProjectTeam[]
-  ProjectRole     ProjectRole[]
+  id             Int             @id @default(autoincrement())
+  name           String
+  description    String
+  organizationId Int
+  organization   Organization    @relation(fields: [organizationId], references: [id])
+  members        ProjectMember[]
+  teams          ProjectTeam[]
+  ProjectRole    ProjectRole[]
 }
 
 model ProjectTeam {
-  id         Int             @id @default(autoincrement())
-  label      String
-  members    ProjectMember[]
-  project_id Int
-  project    Project         @relation(fields: [project_id], references: [id])
+  id        Int             @id @default(autoincrement())
+  label     String
+  members   ProjectMember[]
+  projectId Int
+  project   Project         @relation(fields: [projectId], references: [id])
 }
 
 model ProjectRole {
-  id                        Int     @id @default(autoincrement())
-  project_id                Int
-  project                   Project @relation(fields: [project_id], references: [id])
-  label                     String
-  can_manage_project        Boolean @default(false)
-  can_manage_teams          Boolean @default(false)
-  can_manage_members        Boolean @default(false)
-  can_interact_with_clients Boolean @default(false)
+  id                     Int     @id @default(autoincrement())
+  projectId              Int
+  project                Project @relation(fields: [projectId], references: [id])
+  label                  String
+  canManageProject       Boolean @default(false)
+  canManageTeams         Boolean @default(false)
+  canManageMembers       Boolean @default(false)
+  canInteractWithClients Boolean @default(false)
 }
 
 model MessengerIntegration {
-  id            Int    @id @default(autoincrement())
-  label         String @unique
-  project_id    Int
-  adapter_label String
-  api_key       String
+  id           Int    @id @default(autoincrement())
+  label        String @unique
+  projectId    Int
+  adapterLabel String
+  apiKey       String
 }
