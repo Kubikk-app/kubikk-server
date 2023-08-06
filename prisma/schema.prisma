@@ -14,8 +14,19 @@ model User {
   password    String
   avatar_link String?
 
-  organizations Organization[]
   ProjectMember ProjectMember[]
+  organizations UsersOnOrganizations[]
+}
+
+model UsersOnOrganizations {
+  user           User             @relation(fields: [userId], references: [id])
+  userId         Int
+  organization   Organization     @relation(fields: [organizationId], references: [id])
+  organizationId Int
+  role           OrganizationRole @relation(fields: [roleId], references: [id])
+  roleId         Int
+
+  @@id([userId, organizationId])
 }
 
 model ProjectMember {
@@ -29,22 +40,23 @@ model ProjectMember {
 }
 
 model Organization {
-  id        Int                @id @default(autoincrement())
-  name      String             @unique
-  icon_link String
-  users     User[]
-  projects  Project[]
-  roles     OrganizationRole[]
+  id                   Int                    @id @default(autoincrement())
+  name                 String                 @unique
+  icon_link            String
+  projects             Project[]
+  roles                OrganizationRole[]
+  UsersOnOrganizations UsersOnOrganizations[]
 }
 
 model OrganizationRole {
-  id                  Int          @id @default(autoincrement())
-  label               String
-  can_manage_members  Boolean      @default(false)
-  can_rename_org      Boolean      @default(false)
-  can_manage_projects Boolean      @default(false)
-  organization_id     Int
-  organization        Organization @relation(fields: [organization_id], references: [id])
+  id                   Int                    @id @default(autoincrement())
+  label                String
+  can_manage_members   Boolean                @default(false)
+  can_rename_org       Boolean                @default(false)
+  can_manage_projects  Boolean                @default(false)
+  organization_id      Int
+  organization         Organization           @relation(fields: [organization_id], references: [id])
+  UsersOnOrganizations UsersOnOrganizations[]
 }
 
 model Project {
