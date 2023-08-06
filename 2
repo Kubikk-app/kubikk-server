@@ -67,20 +67,10 @@ model ProjectTeam {
 }
 
 model ProjectRole {
-  id                        Int     @id @default(autoincrement())
-  project_id                Int
-  project                   Project @relation(fields: [project_id], references: [id])
-  label                     String
-  can_manage_project        Boolean @default(false)
-  can_manage_teams          Boolean @default(false)
-  can_manage_members        Boolean @default(false)
-  can_interact_with_clients Boolean @default(false)
-}
-
-model MessengerIntegration {
-  id            Int    @id @default(autoincrement())
-  label         String @unique
-  project_id    Int
-  adapter_label String
-  api_key       String
+  id                 Int     @id @default(autoincrement())
+  project_id         Int
+  project            Project @relation(fields: [project_id], references: [id])
+  label              String
+  can_manage_project Boolean @default(false)
+  can_manage_teams   Boolean @default(false)
 }
