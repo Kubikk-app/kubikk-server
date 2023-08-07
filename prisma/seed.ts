@@ -7,18 +7,18 @@ async function main() {
 
   await prisma.user.deleteMany();
 
-  const newLocal = 'password';
+  const mockPassword = 'password';
   await prisma.user.createMany({
     data: [
       {
         fio: 'Белый Сергей Иванов',
         email: 'bsi@yandex.ru',
-        password: newLocal,
+        password: mockPassword,
       },
       {
         fio: 'Krisper Michael',
         email: 'km@gmail.com',
-        password: newLocal,
+        password: mockPassword,
       },
     ],
   });
