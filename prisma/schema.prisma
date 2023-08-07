@@ -40,6 +40,7 @@ model ProjectMember {
 }
 
 model Organization {
+<<<<<<< HEAD
   id       Int                    @id @default(autoincrement())
   name     String                 @unique
   iconLink String
@@ -57,6 +58,25 @@ model OrganizationRole {
   organizationId    Int
   organization      Organization           @relation(fields: [organizationId], references: [id])
   users             UsersOnOrganizations[]
+=======
+  id                   Int                    @id @default(autoincrement())
+  name                 String                 @unique
+  icon_link            String
+  projects             Project[]
+  roles                OrganizationRole[]
+  UsersOnOrganizations UsersOnOrganizations[]
+}
+
+model OrganizationRole {
+  id                   Int                    @id @default(autoincrement())
+  label                String
+  can_manage_members   Boolean                @default(false)
+  can_rename_org       Boolean                @default(false)
+  can_manage_projects  Boolean                @default(false)
+  organization_id      Int
+  organization         Organization           @relation(fields: [organization_id], references: [id])
+  UsersOnOrganizations UsersOnOrganizations[]
+>>>>>>> 9f6f6e561983b421f61980291de2070ff3afb78c
 }
 
 model Project {
