@@ -12,7 +12,6 @@ export class SignupInput {
   @MinLength(8)
   password: string;
 
-
   @ApiProperty()
   @IsString()
   fio: string;

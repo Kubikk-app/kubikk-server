@@ -5,4 +5,5 @@ export const UserEntity = createParamDecorator(
   (_, ctx: ExecutionContext): User => {
     const request = ctx.switchToHttp().getRequest();
     return request.user;
-  })
+  },
+);

@@ -25,4 +25,4 @@ import config from './common/configs/config';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
