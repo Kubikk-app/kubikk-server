@@ -8,14 +8,24 @@ generator client {
 }
 
 model User {
-  id          Int     @id @default(autoincrement())
-  fio         String
-  email       String  @unique()
-  password    String
-  avatar_link String?
-
-  organizations Organization[]
+  id            Int                    @id @default(autoincrement())
+  fio           String
+  email         String                 @unique()
+  password      String
+  avatar_link   String?
   ProjectMember ProjectMember[]
+  organizations UsersOnOrganizations[]
+}
+
+model UsersOnOrganizations {
+  user           User             @relation(fields: [userId], references: [id])
+  userId         Int
+  organization   Organization     @relation(fields: [organizationId], references: [id])
+  organizationId Int
+  role           OrganizationRole @relation(fields: [roleId], references: [id])
+  roleId         Int
+
+  @@id([userId, organizationId])
 }
 
 model ProjectMember {
@@ -29,22 +39,23 @@ model ProjectMember {
 }
 
 model Organization {
-  id       Int                @id @default(autoincrement())
-  name     String             @unique
+  id       Int                    @id @default(autoincrement())
+  name     String                 @unique
   iconLink String
-  users    User[]
   projects Project[]
   roles    OrganizationRole[]
+  users    UsersOnOrganizations[]
 }
 
 model OrganizationRole {
-  id                Int          @id @default(autoincrement())
+  id                Int                    @id @default(autoincrement())
   label             String
-  canManageMembers  Boolean      @default(false)
-  canRenameOrg      Boolean      @default(false)
-  canManageProjects Boolean      @default(false)
+  canManageMembers  Boolean                @default(false)
+  canRenameOrg      Boolean                @default(false)
+  canManageProjects Boolean                @default(false)
   organizationId    Int
-  organization      Organization @relation(fields: [organizationId], references: [id])
+  organization      Organization           @relation(fields: [organizationId], references: [id])
+  users             UsersOnOrganizations[]
 }
 
 model Project {
