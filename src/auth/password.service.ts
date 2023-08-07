@@ -14,7 +14,7 @@ export class PasswordService {
       : saltOrRounds;
   }
 
-  constructor(private configService: ConfigService) { }
+  constructor(private configService: ConfigService) {}
 
   validatePassword(password: string, hashedPassword: string): Promise<boolean> {
     return compare(password, hashedPassword);

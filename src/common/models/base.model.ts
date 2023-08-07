@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger';
 
 export abstract class BaseModel {
   @ApiProperty()
@@ -14,5 +14,4 @@ export abstract class BaseModel {
       'Identifies the date and time when the object was last updated.',
   })
   updatedAt: Date;
-
 }
