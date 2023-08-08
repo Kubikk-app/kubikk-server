@@ -7,8 +7,9 @@ async function main() {
 
   await prisma.usersOnOrganizations.deleteMany();
   await prisma.organizationRole.deleteMany();
-  await prisma.projectRole.deleteMany();
+  await prisma.projectMember.deleteMany();
   await prisma.projectTeam.deleteMany();
+  await prisma.projectRole.deleteMany();
   await prisma.project.deleteMany();
   await prisma.organization.deleteMany();
   await prisma.user.deleteMany();
